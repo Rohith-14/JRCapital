@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Financing Application</title>
+</head>
+<body>
+    <h1>Apply for Equipment Financing</h1>
+    <form id="financingForm">
+        <label for="firstName">Legal First Name:</label>
+        <input type="text" id="firstName" name="firstName" required><br><br>
+        
+        <label for="lastName">Legal Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required><br><br>
+        
+        <label for="businessName">Legal Business Name:</label>
+        <input type="text" id="businessName" name="businessName" required><br><br>
+        
+        <label for="equipmentType">Equipment Type:</label>
+        <select id="equipmentType" name="equipmentType" required>
+            <option value="">Select Equipment Type</option>
+            <option value="Construction">Construction</option>
+            <option value="Farming">Farming</option>
+            <option value="Manufacturing">Manufacturing</option>
+            <option value="Aesthetic Lasers">Aesthetic Lasers</option>
+            <option value="Trucks & Trailers">Trucks & Trailers</option>
+            <option value="Tow Trucks">Tow Trucks</option>
+        </select><br><br>
+        
+        <input type="submit" value="Apply Now">
+    </form>
+
+    <script>
+        document.getElementById('financingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            fetch('https://your-salesforce-instance.com/services/apexrest/LeadCapture', {
+                method: 'POST',
+                body: JSON.stringify(Object.fromEntries(formData)),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => alert('Application submitted successfully!'))
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
