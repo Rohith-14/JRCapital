@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Equipment Financing Application</title>
+    <style>
+        #loadingMessage {
+            display: none; /* Initially hidden */
+            font-weight: bold;
+            color: blue;
+        }
+    </style>
 </head>
 <body>
     <h1>Apply for Equipment Financing</h1>
@@ -34,12 +41,19 @@
             <option value="Tow Trucks">Tow Trucks</option>
         </select><br><br>
         
-        <input type="submit" value="Apply Now">
+        <input type="submit" value="Apply Now" id="submitButton">
     </form>
+
+    <!-- Loading message -->
+    <p id="loadingMessage">Processing your application, please wait...</p>
 
     <script>
         document.getElementById('financingForm').addEventListener('submit', function(e) {
             e.preventDefault();
+
+            // Show loading message and disable submit button
+            document.getElementById('loadingMessage').style.display = 'block';
+            document.getElementById('submitButton').disabled = true;
 
             const formData = new FormData(this);
             const formObject = Object.fromEntries(formData);
@@ -59,6 +73,11 @@
             .catch(error => {
                 console.error('Error:', error);
                 alert('An error occurred. Please try again.');
+            })
+            .finally(() => {
+                // Hide loading message and re-enable submit button
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById('submitButton').disabled = false;
             });
         });
     </script>
